@@ -6,4 +6,3 @@
 script = ExtResource("1_3kcmh")
 
 [node name="MainUI" type="CanvasLayer" parent="."]
-layer = 99

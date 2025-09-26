@@ -1,0 +1,84 @@
+[gd_scene load_steps=6 format=3 uid="uid://0cff6r8vsndn"]
+
+[ext_resource type="Script" uid="uid://cemwblg5dbr8c" path="res://lib_boo/act_system/cues/ui_ux/ButtonCue.gd" id="1_003ry"]
+[ext_resource type="Script" uid="uid://gwey41os2070" path="res://lib_boo/components/ui_ux/simple_window/SimpleWindow.gd" id="1_tuxa3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fgam1"]
+bg_color = Color(0, 0, 0.46666667, 0.7411765)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_40fyx"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.3372549, 0.101960786, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fn5x0"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.5176471, 0, 0.08627451, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="SimpleWindow" type="PanelContainer"]
+custom_minimum_size = Vector2(100, 124)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1920.0
+offset_bottom = -1080.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fgam1")
+script = ExtResource("1_tuxa3")
+
+[node name="MarginC" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+
+[node name="VBox" type="VBoxContainer" parent="MarginC"]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="MarginC/VBox"]
+layout_mode = 2
+text = "Game Title"
+horizontal_alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="MarginC/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="ConfirmBtn" type="Button" parent="MarginC/VBox/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_40fyx")
+text = "Confirm"
+script = ExtResource("1_003ry")
+metadata/_custom_type_script = "uid://cemwblg5dbr8c"
+
+[node name="DenyBtn" type="Button" parent="MarginC/VBox/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_fn5x0")
+text = "Deny"
+script = ExtResource("1_003ry")
+metadata/_custom_type_script = "uid://cemwblg5dbr8c"
+
+[connection signal="cued" from="MarginC/VBox/HBox/ConfirmBtn" to="." method="_on_confirm_btn_cued"]
+[connection signal="cued" from="MarginC/VBox/HBox/DenyBtn" to="." method="_on_cancel_btn_cued"]
