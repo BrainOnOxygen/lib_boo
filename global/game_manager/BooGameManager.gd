@@ -2,7 +2,7 @@ class_name BooGameManager extends Node
 
 signal gm_ready
 
-var main:MAIN
+var main:BooMain
 var world:BooWorld2D
 
 @onready var textSpawner:SpawnerAct = $TextPopupSpawner
