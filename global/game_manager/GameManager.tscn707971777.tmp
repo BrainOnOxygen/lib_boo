@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfhvxqxyxxbif"]
+
+[ext_resource type="Script" uid="uid://pfofwvncohie" path="res://lib_boo/global/game_manager/GameManager.gd" id="1_qhk37"]
+[ext_resource type="Script" uid="uid://4ic8nnk56j4h" path="res://lib_boo/global/game_manager/BooEventsAbstract.gd" id="2_tq28k"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_qhk37")
+
+[node name="GlobalEvents" type="Node" parent="."]
+script = ExtResource("2_tq28k")
+metadata/_custom_type_script = "uid://4ic8nnk56j4h"

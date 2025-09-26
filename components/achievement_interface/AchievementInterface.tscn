@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dppeuwhkxhmhj"]
+
+[ext_resource type="Script" uid="uid://dsaw7a0e0b5yv" path="res://lib_boo/components/achievement_interface/BooAchievementInterface.gd" id="1_wyt8k"]
+[ext_resource type="Script" uid="uid://wn30x7o3f47m" path="res://addons/milestone/scripts/achievements/achievement_notifier.gd" id="2_s04n3"]
+
+[node name="AchievementInterface" type="CanvasLayer"]
+layer = 77
+script = ExtResource("1_wyt8k")
+
+[node name="AchievementNotifierBoO" type="Node" parent="."]
+script = ExtResource("2_s04n3")
+screen_corner = "BottomLeft"
+margin = 4
+metadata/_custom_type_script = "uid://wn30x7o3f47m"
