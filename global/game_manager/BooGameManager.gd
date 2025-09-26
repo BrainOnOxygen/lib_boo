@@ -18,7 +18,6 @@ var world:BooWorld2D
 @onready var config: GameConfig = $GameConfig
 
 func _ready() -> void:
-	pass
 	gm_ready.emit()
 
 func ShowTextPopup(text:String, parent:Node2D = world, start_pos:Vector2 = Vector2.ZERO, color:Color = Color.WHITE) -> TextPopup:
