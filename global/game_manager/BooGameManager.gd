@@ -11,7 +11,6 @@ var world:BooWorld2D
 @onready var globalAudio:GlobalAudioPlayer = $GlobalAudioPlayer
 @onready var saveLoad: BooSaveLoad = $BooSaveLoad
 
-@onready var sceneTransition: CanvasLayer = $SceneTransition
 @onready var achieve: CanvasLayer = $GlobalEvents/AchievementInterface
 
 @onready var events:GameEventsBus = $GlobalEvents
