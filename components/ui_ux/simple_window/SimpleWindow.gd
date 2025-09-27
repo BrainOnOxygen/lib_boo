@@ -30,8 +30,6 @@ func _ready() -> void:
 	_UpdateBtnText(confirm_btn, confirmText, "Confirm")
 	_UpdateBtnText(deny_btn, denyText, "Deny")
 	_UpdateDenyButtonVisibility()
-	
-	Show()
 
 #region Signal
 func _on_confirm_btn_cued() -> void:
