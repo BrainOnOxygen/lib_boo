@@ -6,7 +6,7 @@ var main:BooMain
 var world:BooWorld2D
 
 @onready var textSpawner:SpawnerAct = $TextPopupSpawner
-@onready var timeGM:TimeManager = $TimeManager
+@onready var time:TimeManager = $TimeManager
 @onready var globalSpawner:GlobalSpawner = $GlobalSpawner
 @onready var globalAudio:GlobalAudioPlayer = $GlobalAudioPlayer
 @onready var saveLoad: BooSaveLoad = $BooSaveLoad

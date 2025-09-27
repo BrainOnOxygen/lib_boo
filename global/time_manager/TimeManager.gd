@@ -17,3 +17,7 @@ func ChangeTimeScale(new_scale:float):
 		print("HASTENED Time Scale to " + str(new_scale))
 	else:
 		print("NORMAL Time Scale on " + str(Engine.time_scale))
+
+func ProcessFrames(frames:int = 1):
+	for i in frames:
+		await get_tree().process_frame

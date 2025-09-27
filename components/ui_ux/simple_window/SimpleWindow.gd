@@ -31,6 +31,7 @@ func _ready() -> void:
 	_UpdateBtnText(deny_btn, denyText, "Deny")
 	_UpdateDenyButtonVisibility()
 	
+	Show()
 
 #region Signal
 func _on_confirm_btn_cued() -> void:
@@ -40,6 +41,15 @@ func _on_confirm_btn_cued() -> void:
 func _on_cancel_btn_cued() -> void:
 	btn_pressed.emit(false)
 
+#endregion
+
+#region Visibility
+func Show() -> void:
+	show()
+	UIAnimation.animate_pop(self)
+
+func Hide() -> void:
+	hide()
 #endregion
 
 #region Helpers
