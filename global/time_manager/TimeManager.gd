@@ -1,12 +1,12 @@
 class_name TimeManager extends Node
 
 const NORMAL_TIME_SCALE:float = 1.0
-const BASELINE_SLOW_TIME_SCALE:float = 0.4
+@export var baselineSlowTimeScale:float = 0.4
 
 
 func ResetTimeScale():
 	Engine.time_scale = NORMAL_TIME_SCALE
-	print("NORMAL Time Scale on " + str(Engine.time_scale))
+	print("RESET Time Scale on " + str(Engine.time_scale))
 
 func ChangeTimeScale(new_scale:float):
 	Engine.time_scale = new_scale
