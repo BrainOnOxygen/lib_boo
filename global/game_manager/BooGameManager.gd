@@ -8,7 +8,7 @@ var world:BooWorld2D
 @onready var textSpawner:SpawnerAct = $TextPopupSpawner
 @onready var time:TimeManager = $TimeManager
 @onready var globalSpawner:GlobalSpawner = $GlobalSpawner
-@onready var globalAudio:GlobalAudioPlayer = $GlobalAudioPlayer
+@onready var audio:GlobalAudioPlayer = $GlobalAudioPlayer
 @onready var saveLoad: BooSaveLoad = $BooSaveLoad
 
 @onready var achieve: CanvasLayer = $GlobalEvents/AchievementInterface
