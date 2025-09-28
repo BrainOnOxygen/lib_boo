@@ -17,6 +17,19 @@ signal cued #connected in CueDelegate
 
 var _colliders: Array[Node] = []
 
+@export_group("Extended")
+@export_subgroup("Temporary Monitoring")
+@export_range(-1.0, 3600.0, 0.1) var temporaryMonitoringDuration: float = 0.0 ## Amount of time that we will monitor for before stopping. Only taken into account if greater than 0.
+var monitoringTimer: Timer = null:
+	get:
+		if monitoringTimer == null:
+			_CreateTemporaryMonitoringTimer()
+		return monitoringTimer
+
+var ShouldMonitor: bool = false:
+	set(val):
+		set_deferred("monitoring", val)
+
 #region Setup
 func _ready():
 	cue = CueDelegate.Setup(self, cue)
@@ -33,22 +46,25 @@ func _SetupColliders() -> void:
 			_colliders.append(child)
 	
 	if startDisabled:
-		DisableColliders()
+		StopMonitoring()
 
 func _SetupMonitoring() -> void:
 	if delayToMonitor > 0:
 		monitoring = false
 		await get_tree().create_timer(delayToMonitor).timeout
-		monitoring = true
+		if temporaryMonitoringDuration > 0:
+			StartTemporaryMonitoring()
+		else:
+			ShouldMonitor = true
 #endregion
 
 func EnableColliders() -> void:
 	for collider in _colliders:
-		collider.disabled = false
+		collider.set_deferred("disabled", false)
 
 func DisableColliders() -> void:
 	for collider in _colliders:
-		collider.disabled = true
+		collider.set_deferred("disabled", true)
 
 #region Cues
 func CueActs(object = null):
@@ -80,4 +96,30 @@ func _input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.button_index == MOUSE_BUTTON_LEFT:
 		CueActs()
 		clicked.emit(global_position, get_viewport().get_mouse_position())
+#endregion
+
+#region Extend
+func StartTemporaryMonitoring(enable_colliders: bool = true) -> void:
+	ShouldMonitor = true
+	monitoringTimer.start()
+	
+	if enable_colliders:
+		EnableColliders()
+
+func StopMonitoring(disable_colliders: bool = true) -> void:
+	ShouldMonitor = false
+	monitoringTimer.stop()
+	
+	if disable_colliders:
+		DisableColliders()
+
+func _CreateTemporaryMonitoringTimer() -> void:
+	monitoringTimer = Timer.new()
+	monitoringTimer.wait_time = temporaryMonitoringDuration
+	monitoringTimer.one_shot = true
+	monitoringTimer.autostart = false
+	monitoringTimer.timeout.connect(StopMonitoring)
+	monitoringTimer.name = name+"_TempMonitorTimer"
+	add_child(monitoringTimer)
+
 #endregion
