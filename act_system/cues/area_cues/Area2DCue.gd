@@ -19,7 +19,7 @@ var _colliders: Array[Node] = []
 
 @export_group("Extended")
 @export_subgroup("Temporary Monitoring")
-@export_range(-1.0, 3600.0, 0.1) var temporaryMonitoringDuration: float = 0.0 ## Amount of time that we will monitor for before stopping. Only taken into account if greater than 0.
+@export_range(-1.0, 3600.0, 0.1) var temporaryMonitoringDuration: float = 0.0 ## Amount of time that we will monitor for before stopping. Only taken into account if greater than 0. MAX = 1 hour.
 var monitoringTimer: Timer = null:
 	get:
 		if monitoringTimer == null:
@@ -99,15 +99,24 @@ func _input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 #endregion
 
 #region Extend
-func StartTemporaryMonitoring(enable_colliders: bool = true) -> void:
+func StartMonitoring(enable_colliders: bool = true) -> void:
 	ShouldMonitor = true
-	monitoringTimer.start()
 	
 	if enable_colliders:
 		EnableColliders()
 
+## Activates monitoring and uses temporaryMonitoringDuration as default, or sets it to the timer_override if provided.
+func StartTemporaryMonitoring(enable_colliders: bool = true, timer_override: float = temporaryMonitoringDuration) -> void:
+	StartMonitoring(enable_colliders)
+
+	if timer_override < 0:
+		return
+	monitoringTimer.start(timer_override)
+
+
 func StopMonitoring(disable_colliders: bool = true) -> void:
 	ShouldMonitor = false
+
 	monitoringTimer.stop()
 	
 	if disable_colliders:
