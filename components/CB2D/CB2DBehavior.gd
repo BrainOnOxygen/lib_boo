@@ -28,17 +28,17 @@ func _ready():
 func _process(delta):
 	if not enabled or not _is_ready:
 		return
-	_process_behavior(delta)
+	_ProcessBehavior(delta)
 
 func _physics_process(delta):
 	if not enabled or not _is_ready:
 		return
-	_physics_process_behavior(delta)
+	_PhysicsProcessBehavior(delta)
 
 func _input(event):
 	if not enabled or not _is_ready:
 		return
-	_input_behavior(event)
+	_InputBehavior(event)
 
 ## Internal method for manager to set character body reference
 func SetCharacterBody(character_body: CharacterBody2D):
@@ -54,13 +54,13 @@ func _on_enabled():
 func _on_disabled():
 	pass
 
-func _process_behavior(_delta):
+func _ProcessBehavior(_delta):
 	pass
 
-func _physics_process_behavior(_delta):
+func _PhysicsProcessBehavior(_delta):
 	pass
 
-func _input_behavior(_event):
+func _InputBehavior(_event):
 	pass
 
 ## Optional input hooks called by the manager

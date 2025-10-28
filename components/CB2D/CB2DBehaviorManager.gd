@@ -16,55 +16,24 @@ signal movement_changed(direction: Vector2)
 var _behaviors: Array = []
 
 func _ready():
-	characterBody = get_parent() as CharacterBody2D
+	if not characterBody:
+		characterBody = get_parent() as CharacterBody2D
 	if not characterBody:
 		push_error("CB2DBehaviorManager must be a child of CharacterBody2D")
 		return
 	
 	# Collect all existing behaviors
-	_collect_behaviors()
+	_CollectBehaviors()
 
 func _process(_delta: float) -> void:
 	if shouldCallMoveAndSlide:
 		characterBody.move_and_slide()
 
-func _input(event):
-	# Dispatch action press/release
-	if event is InputEventAction:
-		var action_event := event as InputEventAction
-		if action_event.pressed:
-			if action_event.action == jumpAction:
-				_dispatch_action_pressed("jump")
-			if action_event.action == leftAction:
-				_left_down = true
-				_update_movement()
-			if action_event.action == rightAction:
-				_right_down = true
-				_update_movement()
-			if action_event.action == upAction:
-				_up_down = true
-				_update_movement()
-			if action_event.action == downAction:
-				_down_down = true
-				_update_movement()
-		else:
-			# released
-			if action_event.action == jumpAction:
-				_dispatch_action_released("jump")
-			if action_event.action == leftAction:
-				_left_down = false
-				_update_movement()
-			if action_event.action == rightAction:
-				_right_down = false
-				_update_movement()
-			if action_event.action == upAction:
-				_up_down = false
-				_update_movement()
-			if action_event.action == downAction:
-				_down_down = false
-				_update_movement()
-
-func _collect_behaviors():
+func _input(_event):
+	var new_vector = Input.get_vector(leftAction, rightAction, upAction, downAction)
+	_UpdateMoveInput(new_vector)
+	
+func _CollectBehaviors():
 	_behaviors.clear()
 	for child in get_children():
 		if child is CB2DBehavior:
@@ -108,17 +77,6 @@ func enable_behavior_type(behavior_type: GDScript, enabled: bool):
 			behavior.enabled = enabled
 
 ## Convenience methods for specific behaviors
-func GetGravityBehavior() -> CB2DGravity:
-	return get_behavior(CB2DGravity) as CB2DGravity
-
-func GetJumpBehavior() -> CB2DJump:
-	return get_behavior(CB2DJump) as CB2DJump
-
-#func GetInputBehavior() -> CB2DInput:
-	#return get_behavior(CB2DInput) as CB2DInput
-#
-#func GetMovementBehavior() -> CB2DSideMovement:
-	#return get_behavior(CB2DSideMovement) as CB2DSideMovement
 
 # --- Internal input state and dispatch ---
 var _movement_direction: Vector2 = Vector2.ZERO
@@ -127,15 +85,12 @@ var _right_down: bool = false
 var _up_down: bool = false
 var _down_down: bool = false
 
-func _update_movement():
-	var new_dir := Vector2.ZERO
-	new_dir.x = (1 if _right_down else 0) - (1 if _left_down else 0)
-	new_dir.y = (1 if _down_down else 0) - (1 if _up_down else 0)
-	if new_dir != _movement_direction:
-		_movement_direction = new_dir
+func _UpdateMoveInput(direction: Vector2):
+	if direction != _movement_direction:
+		_movement_direction = direction
 		movement_changed.emit(_movement_direction)
 		for behavior in _behaviors:
-			behavior.OnMovementInput(_movement_direction)
+			behavior.OnMovementInput(direction)
 
 func _dispatch_action_pressed(canonical_action: String):
 	for behavior in _behaviors:

@@ -11,7 +11,7 @@ var _airborneCounter: int = 0
 var _overrideForce: float = 0.0
 var _isOverriding := false
 
-func _physics_process_behavior(delta):
+func _PhysicsProcessBehavior(delta):
 	if not _character_body or _character_body.is_on_floor():
 		if _airborneCounter > 0:
 			_airborneCounter = 0

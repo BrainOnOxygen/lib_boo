@@ -22,7 +22,7 @@ func OnJumpPressed():
 	_TryJump()
 
 
-func _physics_process_behavior(delta):
+func _PhysicsProcessBehavior(delta):
 	# Handle coyote timer
 	if is_on_ground():
 		_coyoteTimer = 0.0

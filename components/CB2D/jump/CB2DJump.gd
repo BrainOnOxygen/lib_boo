@@ -29,7 +29,7 @@ func OnJumpReleased():
 	_jump_pressed = false
 
 
-func _physics_process_behavior(delta):
+func _PhysicsProcessBehavior(delta):
 	if _is_jumping:
 		_jump_time += delta
 		

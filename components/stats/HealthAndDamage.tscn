@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2742jmpctrmj"]
+
+[ext_resource type="Script" uid="uid://cr87fseu8wwc3" path="res://lib_boo/components/stats/HealthAndDamageCue.gd" id="1_56gj4"]
+
+
+
+[sub_resource type="LabelSettings" id="LabelSettings_522lp"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="HealthAndDamage" type="Node2D"]
+script = ExtResource("1_56gj4")
+showHp = false
+
+[node name="HpLabel" type="Label" parent="."]
+visible = false
+offset_left = -19.0
+offset_top = -26.0
+offset_right = 21.0
+offset_bottom = -3.0
+text = "3"
+label_settings = SubResource("LabelSettings_522lp")
+horizontal_alignment = 1
