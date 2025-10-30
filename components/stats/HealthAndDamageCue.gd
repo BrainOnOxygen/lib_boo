@@ -24,22 +24,22 @@ var autoConnectToChildHurtboxes: bool = true
 ##Dynamic property
 var scaleOnDamage: float = 1.0 ##If this is any value but 1.0, we trigger a scale tween
 
-@export var maxHealth: int = 3:
+@export var MaxHealth: int = 3:
 	get:
-		return maxHealth
+		return MaxHealth
 	set(value):
-		var difference = maxHealth - _health
-		maxHealth = value
-		_health = maxHealth - difference
+		var difference = MaxHealth - Health
+		MaxHealth = value
+		Health = MaxHealth - difference
 
-var _health: int = 3:
+var Health: int = 3:
 	get:
-		return _health
+		return Health
 	set(value):
 		if value <= 0 and not canBeReducedToZero:
 			value = 1
-		_health = value
-		health_changed.emit(_health, maxHealth)
+		Health = value
+		health_changed.emit(Health, MaxHealth)
 		if shouldCueOnHealthChange:
 			CueActs()
 		
@@ -48,11 +48,11 @@ var _health: int = 3:
 		
 		if is_node_ready():
 			if showHp:
-				hpLabel.text = str(_health)
+				hpLabel.text = str(Health)
 
 var HealthPercentage: float:
 	get:
-		return float(_health) / float(maxHealth)
+		return float(Health) / float(MaxHealth)
 
 @export var shouldCueOnHealthChange: bool = false
 
@@ -67,7 +67,7 @@ var HealthPercentage: float:
 		hpLabel.visible = showHp
 
 var IsMissingHealth:bool:
-	get: return _health < maxHealth
+	get: return Health < MaxHealth
 
 var isInvincible: bool = false
 var _hurtboxes: Array[HurtboxCue] = []
@@ -84,7 +84,7 @@ func _ready() -> void:
 	
 	if showHp:
 		hpLabel.visible = true
-		hpLabel.text = str(_health)
+		hpLabel.text = str(Health)
 
 func _PlayOnDamageEffect() -> void:
 	if not animateOnDamageTarget or _is_tween_running:
@@ -98,7 +98,7 @@ func _PlayOnDamageEffect() -> void:
 	
 	_is_tween_running = true
 	
-	# Set the health percentage in the shader
+	# Set the Health percentage in the shader
 	animateOnDamageTarget.material.set_shader_parameter("health_percentage", HealthPercentage)
 	
 	_flash_tween = create_tween()
@@ -118,9 +118,9 @@ func CalculateDamage(damage: int, hit: HitData = null) -> void:
 	if isInvincible: 
 		return
 	
-	var initial_health := _health
-	_health = max(0, _health - damage)
-	var damage_dealt := initial_health - _health
+	var initial_health := Health
+	Health = max(0, Health - damage)
+	var damage_dealt := initial_health - Health
 	
 	_SpawnDamagePopup(damage_dealt)
 	if hit:	
@@ -136,14 +136,14 @@ func _OnHitReceived(hit: HitData) -> void:
 	CalculateDamage(hit.power, hit)
 
 func _SetUpHealth() -> void:
-	_health = maxHealth
+	Health = MaxHealth
 	if showHp:
-		hpLabel.text = str(_health)
+		hpLabel.text = str(Health)
 	else:
 		hpLabel.visible = false
 	
 	await get_tree().create_timer(0.1).timeout
-	health_changed.emit(_health, maxHealth)
+	health_changed.emit(Health, MaxHealth)
 
 func _ConnectToChildHurtboxes() -> void:
 	for child in get_children():
@@ -166,12 +166,12 @@ func _RemoveHurtbox(hurtbox: HurtboxCue) -> void:
 	_hurtboxes.erase(hurtbox)
 
 func Heal(amount: int) -> void:
-	_health = min(_health + amount, maxHealth)
-	health_changed.emit(_health, maxHealth)
+	Health = min(Health + amount, MaxHealth)
+	health_changed.emit(Health, MaxHealth)
 
 func DepleteHealth() -> void:
 	canBeReducedToZero = true
-	_health = 0
+	Health = 0
 
 func _get_property_list() -> Array:
 	var properties: Array[Dictionary] = []

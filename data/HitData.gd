@@ -13,7 +13,7 @@ var KnockbackForce:float:
 	get: return BASE_KNOCKBACK_FORCE * knockbackMultiplier
 
 # Base knockback force - adjust this globally to tune all knockback
-const BASE_KNOCKBACK_FORCE: float = 1000.0
+const BASE_KNOCKBACK_FORCE: float = 500.0
 
 func _init(p_power: int = 1, knockback_mult: float = 1.0) -> void:
 	self.power = p_power

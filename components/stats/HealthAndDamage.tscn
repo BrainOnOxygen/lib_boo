@@ -2,8 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cr87fseu8wwc3" path="res://lib_boo/components/stats/HealthAndDamageCue.gd" id="1_56gj4"]
 
-
-
 [sub_resource type="LabelSettings" id="LabelSettings_522lp"]
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)

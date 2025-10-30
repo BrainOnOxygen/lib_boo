@@ -37,3 +37,7 @@ static func FindClosestNode2D(nodes: Array, position: Vector2) -> Node2D:
 			closestDistance = distance
 			closestNode = node2d
 	return closestNode
+
+static func TryKillTween(tween: Tween) -> void:
+	if tween and tween.is_running():
+		tween.kill()

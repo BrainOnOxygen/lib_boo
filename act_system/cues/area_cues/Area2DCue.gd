@@ -124,7 +124,7 @@ func StopMonitoring(disable_colliders: bool = true) -> void:
 
 func _CreateTemporaryMonitoringTimer() -> void:
 	monitoringTimer = Timer.new()
-	monitoringTimer.wait_time = temporaryMonitoringDuration
+	monitoringTimer.wait_time = maxf(temporaryMonitoringDuration, 0.01)
 	monitoringTimer.one_shot = true
 	monitoringTimer.autostart = false
 	monitoringTimer.timeout.connect(StopMonitoring)
