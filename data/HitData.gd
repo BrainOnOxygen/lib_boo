@@ -1,6 +1,9 @@
 ## Info on any hit, including power, knockback and status to apply.
 class_name HitData extends Resource
 
+# Base knockback force - adjust this globally to tune all knockback
+const BASE_KNOCKBACK_FORCE: float = 250.0
+
 @export var hitName:String = ""
 @export var power: int = 1
 @export var knockbackMultiplier: float = 1.0  # 1.0 = normal, 2.0 = double, 0.5 = half
@@ -12,8 +15,6 @@ var hitPosition: Vector2 ##Where the hit happened, in 2D.
 var KnockbackForce:float:
 	get: return BASE_KNOCKBACK_FORCE * knockbackMultiplier
 
-# Base knockback force - adjust this globally to tune all knockback
-const BASE_KNOCKBACK_FORCE: float = 500.0
 
 func _init(p_power: int = 1, knockback_mult: float = 1.0) -> void:
 	self.power = p_power
