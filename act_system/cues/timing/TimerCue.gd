@@ -21,6 +21,9 @@ var minWaitTime := 0.0
 var _intervalTracker := 0.0
 var _timeLeft := 0.0
 
+var TimeString: String:
+	get: return Helpers.FloatToTime(_timeLeft)
+
 func _ready() -> void:
 	cue = CueDelegate.Setup(self, cue)
 	# Setup timer functionality

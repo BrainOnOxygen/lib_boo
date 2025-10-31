@@ -26,4 +26,10 @@ func ShowTextPopup(text:String, parent:Node2D = world, start_pos:Vector2 = Vecto
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("reset"):
-		get_tree().reload_current_scene()
+		ResetCurrentScene()
+
+func ResetCurrentScene() -> void:
+	get_tree().reload_current_scene()
+
+func PauseState(new_state:bool) -> void:
+	get_tree().paused = new_state

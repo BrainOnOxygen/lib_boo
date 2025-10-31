@@ -41,3 +41,8 @@ static func FindClosestNode2D(nodes: Array, position: Vector2) -> Node2D:
 static func TryKillTween(tween: Tween) -> void:
 	if tween and tween.is_running():
 		tween.kill()
+
+static func FloatToTime(time: float) -> String:
+	var minutes: int = floori(time / 60.0)
+	var seconds: int = floori(fmod(time, 60.0))
+	return "%02d:%02d" % [minutes, seconds]
